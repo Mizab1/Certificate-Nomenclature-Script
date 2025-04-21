@@ -1,3 +1,5 @@
+# Ex: python script.py base_cert.jpg names.txt 1000 590 "LexendDeca-Regular.ttf" 64
+
 import os
 import time
 import uuid
