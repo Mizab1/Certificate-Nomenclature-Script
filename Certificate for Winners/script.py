@@ -15,24 +15,6 @@ def add_texts_to_image_and_convert_to_pdf(
     event_name, event_position, event_font_size,
     rank, rank_position, rank_font_size
 ):
-    """
-    Opens an image, adds multiple text elements at specified positions, and converts it to a PDF.
-    
-    Args:
-        image_path (str): Path to the JPG image
-        name (str): Name to add to the image
-        name_position (tuple): Position (x, y) where the center of the name will be
-        name_font_size (int): Font size for the name
-        event_name (str): Event name to add to the image
-        event_position (tuple): Position (x, y) where the center of the event name will be
-        event_font_size (int): Font size for the event name
-        rank (str): Rank to add to the image
-        rank_position (tuple): Position (x, y) where the center of the rank will be
-        rank_font_size (int): Font size for the rank
-        
-    Returns:
-        str: Path to the created PDF file
-    """
     try:
         # Generate a unique temporary filename to avoid conflicts
         unique_id = str(uuid.uuid4())[:8]
@@ -48,17 +30,10 @@ def add_texts_to_image_and_convert_to_pdf(
         
         # Get system font based on platform
         system_fonts = {
-            'windows': 'arial.ttf',
-            'darwin': '/Library/Fonts/Arial.ttf',  # macOS
-            'linux': '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'  # Linux
+            'windows': 'arial.ttf'
         }
         
-        if sys.platform.startswith('win'):
-            default_font_path = system_fonts['windows']
-        elif sys.platform == 'darwin':
-            default_font_path = system_fonts['darwin']
-        else:
-            default_font_path = system_fonts['linux']
+        default_font_path = system_fonts['windows']
         
         # Function to add centered text with specified font size
         def add_centered_text(text, position, font_size):
@@ -134,15 +109,6 @@ def add_texts_to_image_and_convert_to_pdf(
         return None
 
 def title_case_name(name):
-    """
-    Convert a name to title case (first letter of each word capitalized, rest lowercase)
-    
-    Args:
-        name (str): The name to convert
-        
-    Returns:
-        str: The name in title case
-    """
     # Split the name into words and apply title case to each word
     words = name.strip().split()
     title_cased_words = [word.capitalize() for word in words]
@@ -156,21 +122,6 @@ def process_names_from_file(
     event_name, event_position, event_font_size,
     rank, rank_position, rank_font_size
 ):
-    """
-    Process multiple names from a text file.
-    
-    Args:
-        image_path (str): Path to the JPG image
-        names_file (str): Path to text file containing names (one per line)
-        name_position (tuple): Position (x, y) where the center of the name will be
-        name_font_size (int): Font size for the name
-        event_name (str): Event name to add to each image
-        event_position (tuple): Position (x, y) where the center of the event name will be
-        event_font_size (int): Font size for the event name
-        rank (str): Rank to add to each image
-        rank_position (tuple): Position (x, y) where the center of the rank will be
-        rank_font_size (int): Font size for the rank
-    """
     successful = 0
     failed = 0
     

@@ -10,19 +10,6 @@ import sys
 import traceback
 
 def add_text_to_image_and_convert_to_pdf(image_path, text, position, font_path=None, font_size=30):
-    """
-    Opens an image, adds text centered at a specific position, and converts it to a PDF in landscape orientation.
-    
-    Args:
-        image_path (str): Path to the JPG image
-        text (str): Text to add to the image
-        position (tuple): Position (x, y) where the center of the text will be
-        font_path (str, optional): Path to a TTF font file
-        font_size (int, optional): Font size
-        
-    Returns:
-        str: Path to the created PDF file
-    """
     try:
         # Generate a unique temporary filename to avoid conflicts
         unique_id = str(uuid.uuid4())[:8]
@@ -44,17 +31,10 @@ def add_text_to_image_and_convert_to_pdf(image_path, text, position, font_path=N
             else:
                 # If no font is provided or it doesn't exist, try to use a system font
                 system_fonts = {
-                    'windows': 'arial.ttf',
-                    'darwin': '/Library/Fonts/Arial.ttf',  # macOS
-                    'linux': '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'  # Linux
+                    'windows': 'arial.ttf'
                 }
                 
-                if sys.platform.startswith('win'):
-                    default_font = system_fonts['windows']
-                elif sys.platform == 'darwin':
-                    default_font = system_fonts['darwin']
-                else:
-                    default_font = system_fonts['linux']
+                default_font = system_fonts['windows']
                 
                 try:
                     font = ImageFont.truetype(default_font, size=font_size)
@@ -129,15 +109,6 @@ def add_text_to_image_and_convert_to_pdf(image_path, text, position, font_path=N
         return None
 
 def title_case_name(name):
-    """
-    Convert a name to title case (first letter of each word capitalized, rest lowercase)
-    
-    Args:
-        name (str): The name to convert
-        
-    Returns:
-        str: The name in title case
-    """
     # Split the name into words and apply title case to each word
     words = name.strip().split()
     title_cased_words = [word.capitalize() for word in words]
@@ -146,16 +117,6 @@ def title_case_name(name):
     return ' '.join(title_cased_words)
 
 def process_names_from_file(image_path, names_file, position, font_path=None, font_size=30):
-    """
-    Process multiple names from a text file.
-    
-    Args:
-        image_path (str): Path to the JPG image
-        names_file (str): Path to text file containing names (one per line)
-        position (tuple): Position (x, y) where the center of the text will be
-        font_path (str, optional): Path to a TTF font file
-        font_size (int, optional): Font size
-    """
     successful = 0
     failed = 0
     
